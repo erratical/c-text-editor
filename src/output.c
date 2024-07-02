@@ -128,7 +128,9 @@ void editorDrawRows(struct abuf *ab)
                     {
                         currentColor = color;
                         char buf[16];
-                        int colorLen = snprintf(buf, sizeof(buf), "\x1b[38;5;%dm", color);
+                        int colorLen = hl[ch] == HL_MATCH ? 
+                        snprintf(buf, sizeof(buf), "\x1b[38;5;%dm", color):
+                        snprintf(buf, sizeof(buf), "\x1b[38;5;%dm", color);
                         abAppend(ab, buf, colorLen);
                     }
                     abAppend(ab, &line[ch], 1);

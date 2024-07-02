@@ -16,7 +16,6 @@
 /**
  * @brief Manages file text opening by reading file and calling editorAppendRow, skipping any escape characters.
  * @param fileName The file to be read. If file not provided, simply display welcome screen.
- * @return None
 */
 void editorOpen(char *fileName)
 {
@@ -50,7 +49,6 @@ void editorOpen(char *fileName)
  * @brief and sets editor row attributes `size` and `chars` to be the read string/line.
  * @param s The line read from the file that will be copied to `editor.row[index].chars`
  * @param len Length of line.
- * @return void
 */
 void editorInsertRow(int at, char *s, size_t len)
 {

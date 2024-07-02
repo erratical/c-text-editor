@@ -39,7 +39,4 @@ int main(int argc, char *argv[])
         editorProcessKeypress();
     }
 }
-// test123 test123 test123
-// test
-// test
-// ZYZYZYZYZYZYZYZY
+// text edit

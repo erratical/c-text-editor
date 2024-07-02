@@ -29,9 +29,8 @@ struct editorSyntax HDLB[] = {
 unsigned int HLDB_ENTRIES = sizeof(HDLB) / sizeof(HDLB[0]);
 
 /**
- * @brief Initializes the global editor variable attributes and editor's screensize based on terminal dimensions by calling getWindowSize.
- * @param None
- * @return None
+ * @brief Initializes the global editor variable attributes and editor's screensize 
+ * @brief based on terminal dimensions by calling getWindowSize.
 */
 void initEditor()
 {

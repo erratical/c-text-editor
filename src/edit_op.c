@@ -67,6 +67,10 @@ void editorInsertNewLine()
     editor.cx = 0;
 }
 
+/**
+ * @brief Enabled with Ctrl-F, it saves cursor position and calls `editorPrompt` to
+ * @brief which passes `editorFindCallback` as its callback function for incremental search.
+*/
 void editorFind()
 {
     int saved_cx = editor.cx;
@@ -88,6 +92,10 @@ void editorFind()
     }
 }
 
+/**
+ * @brief Used in `editorFindCallback` to find previous match. Reverses a string.
+ * @param str String to reverse.
+*/
 void reverse_string(char* str) {
     if (str == NULL) return;
     int len = strlen(str);
@@ -98,6 +106,13 @@ void reverse_string(char* str) {
     }
 }
 
+/**
+ * @brief Main function for finding a substring within the document. 
+ * @brief Uses `strstr` to find an instance of substring within the line and saves
+ * @brief previous match with `static` variables.
+ * @param query Substring to be matched within document.
+ * @param key Last key pressed.
+*/
 void editorFindCallback(char *query, int key)
 {
     static int last_match = -1; // index of the row last matched on, or -1 if no last match
@@ -133,7 +148,7 @@ void editorFindCallback(char *query, int key)
         direction = -1;
         searching_inline = 1;
     }
-    else // when i press any key, such as when searching
+    else // when pressing any key, such as when searching
     {
         last_match = -1;
         direction = 1;
@@ -227,7 +242,7 @@ void editorFindCallback(char *query, int key)
         }
     }
 
-    // If we've searched all rows and found no match, reset
+    // If all rows are searched and found no match, reset
     if (i == editor.numrows)
     {
         last_match = -1;

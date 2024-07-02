@@ -29,24 +29,24 @@ struct editorSyntax
 
 struct editorConfig 
 {
-    int cx, cy; // CURSOR POSITION
-    int rx; // RENDERED POSITION (tabs)
-    int rowoff; // ROW OFFSET (vertical scroll)
-    int coloff; // COL OFFSET (horizontal scroll)
+    int cx, cy; // cursor position in terminal
+    int rx; // rendered position in text 
+    int rowoff; // row offset (vertical scroll)
+    int coloff; // column offset (horizontal scroll)
     int screenRows; 
     int screenCols;
-    int numrows; 
+    int numrows; // total number of rows
     erow *row; // editor row
-    char *fileName;
-    char statusmsg[80];
-    time_t statusmsg_time;
-    struct editorSyntax *syntax;
-    struct termios originalTermios;
-    int unsaved;
+    char *fileName; 
+    char statusmsg[80]; // status bar message
+    time_t statusmsg_time; // timeout 
+    struct editorSyntax *syntax; 
+    struct termios originalTermios; // terminal attributes
+    int unsaved; // modified flag
 };
 
-extern struct editorSyntax HDLB[];
-extern unsigned int HLDB_ENTRIES;
+extern struct editorSyntax HDLB[]; // database for syntaxing
+extern unsigned int HLDB_ENTRIES; // size of HDLB
 
 struct editorConfig editor; // `GLOBAL`
 

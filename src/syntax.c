@@ -161,7 +161,7 @@ int editorSyntaxToColor(int hl)
         case HL_KEYWORD2: return 33;
         case HL_STRING: return 136;
         case HL_NUMBER: return 193;
-        case HL_MATCH: return 36;
+        case HL_MATCH: return 94;
         default: return 255;
     }
 }

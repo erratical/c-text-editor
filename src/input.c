@@ -10,8 +10,6 @@
 
 /**
  * @brief Handles special keypresses for editor functions.
- * @param None
- * @return None
 */
 void editorProcessKeypress()
 {
@@ -74,7 +72,6 @@ void editorProcessKeypress()
         // Escape Key
         case CTRL_KEY('l'):
         case '\x1b':
-            // TODO
             break;
         
         case PAGE_UP:
@@ -104,7 +101,6 @@ void editorProcessKeypress()
 /**
  * @brief Handles keypresses for moving cursor.
  * @param key Key pressed.
- * @return None
 */
 void editorMoveCursor(int key)
 {
@@ -156,6 +152,9 @@ void editorMoveCursor(int key)
     if (editor.cx > rowlen) editor.cx = rowlen; // correct x position if cursor is beyond line
 }
 
+/**
+ * @brief Prompt function displayed in status message b ar.
+*/
 char *editorPrompt(char *prompt, void (*callback)(char *, int))
 {
     size_t bufsize = 128;
@@ -177,7 +176,7 @@ char *editorPrompt(char *prompt, void (*callback)(char *, int))
         {
             if (buflen != 0) buf[--buflen] = '\0';
         }
-        // Escape Key, cancel save as
+        // Ctrl-X, cancel save as
         else if (c == CTRL_KEY('x'))
         {
             editorSetStatusMessage("");

@@ -61,21 +61,20 @@ void disableRaw()
 /**
  * @brief Display error message and exit the program with failure.
  * @param str The context in which the error occurred.
- * @return None
 */
 void die(const char* str)
 {
     write(STDOUT_FILENO, "\x1b[2J", 4);
     write(STDOUT_FILENO, "\x1b[H", 3);
 
+    // Custom string `str` to be printed before actual error.
     perror(str);
     exit(1);
 }
 
 /**
  * @brief Function for reading single keypresses. The different key press constants are mapped here.
- * @param None
- * @return Character read.
+ * @return The character read.
 */
 int editorReadKey()
 {
@@ -87,6 +86,7 @@ int editorReadKey()
         if (nread == -1 && errno != EAGAIN) die("read");
     }
 
+    // Escape sequences
     if (c == '\x1b')
     {
         char seq[3];
@@ -113,6 +113,8 @@ int editorReadKey()
                     }
                 }
             }
+            // Ctrl-A, Ctrl-B, Ctrl-C, Ctrl-D 
+            // are synonymous to arrow keys
             else 
             {
                 switch(seq[1])
@@ -126,7 +128,8 @@ int editorReadKey()
                 }
             }    
         } 
-        else if (seq[0] == 'O') // '<esc>O'
+        // '<esc>O'
+        else if (seq[0] == 'O') 
         {
             switch(seq[1])
             {
@@ -137,6 +140,8 @@ int editorReadKey()
     
         return '\x1b';
     }
+
+    // Normal key presses
     else 
     {
         return c;
@@ -153,7 +158,7 @@ int getWindowSize(int* rows, int* cols)
 {
     struct winsize ws;
 
-    // If ioctl has failed, manually position cursor to the bottom right.
+    // If ioctl has failed, manually position cursor to the bottom right
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1 || ws.ws_col == 0)
     {
         if (write(STDOUT_FILENO, "\x1b[999C\x1b[999B", 12) != 12) return -1;
@@ -183,6 +188,7 @@ int getCursorPosition(int* rows, int* cols)
     if (write(STDOUT_FILENO, "\x1b[6n", 4) != 4) return -1;
 
     // Parse the request into a string 'buf'
+    //<rows>;<cols>R
     while (i < sizeof(buf) - 1)
     {
         if (read(STDIN_FILENO, &buf[i], 1) != 1) break;
